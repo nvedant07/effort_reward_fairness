@@ -1,0 +1,5 @@
+util/__pycache__/*.pyc
+util/datasets/__pycache__/*.pyc
+effort_reward_unfairness/__pycache__/*.pyc
+effort_reward_unfairness/learning_env/__pycache__/*.pyc
+.DS_store
