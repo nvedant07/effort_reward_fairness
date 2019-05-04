@@ -50,8 +50,7 @@ def base_exp(return_vars=False, test_or_train=None):
         if dataset_info[dataset]['prediction_task'] == CLASSIFICATION:
             models = [lm.LogReg(), lm.DT(), lm.SVM(), lm.NN()]
         elif dataset_info[dataset]['prediction_task'] == REGRESSION:
-            # models = [lm.LinReg(), lm.NNReg(), lm.DTReg()]
-            models = [lm.LinReg()]
+            models = [lm.LinReg(), lm.NNReg(), lm.DTReg()]
     if return_vars:
         return dataset, models
     evaluate_models(dataset, models, test_or_train)
