@@ -12,31 +12,31 @@
 
 ###### Libraries needed to run the code:
 
-asn1crypto==0.24.0
-bcrypt==3.1.5
-cffi==1.11.5
-cryptography==2.4.2
-cycler==0.10.0
-idna==2.8
-kiwisolver==1.0.1
-matplotlib==3.0.2
-numpy==1.16.0
-pandas==0.23.4
-paramiko==2.4.2
-pkg-resources==0.0.0
-pyasn1==0.4.5
-pycparser==2.19
-pydotplus==2.0.2
-PyNaCl==1.3.0
-pyparsing==2.3.0
-python-dateutil==2.7.5
-pytz==2018.9
-scikit-learn==0.20.2
-scipy==1.2.0
-seaborn==0.9.0
-six==1.12.0
-sklearn==0.0
-xlrd==1.2.0
+ * asn1crypto==0.24.0
+ * bcrypt==3.1.5
+ * cffi==1.11.5
+ * cryptography==2.4.2
+ * cycler==0.10.0
+ * idna==2.8
+ * kiwisolver==1.0.1
+ * matplotlib==3.0.2
+ * numpy==1.16.0
+ * pandas==0.23.4
+ * paramiko==2.4.2
+ * pkg-resources==0.0.0
+ * pyasn1==0.4.5
+ * pycparser==2.19
+ * pydotplus==2.0.2
+ * PyNaCl==1.3.0
+ * pyparsing==2.3.0
+ * python-dateutil==2.7.5
+ * pytz==2018.9
+ * scikit-learn==0.20.2
+ * scipy==1.2.0
+ * seaborn==0.9.0
+ * six==1.12.0
+ * sklearn==0.0
+ * xlrd==1.2.0
 
 
 To install all these, cd to effort_reward_fairness and execute ``pip install -r requirements.txt``. You might need sudo permission for installation.
