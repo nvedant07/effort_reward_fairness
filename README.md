@@ -1,48 +1,48 @@
-== Code for paper titled ``On the Long-term Impact of Algorithmic Policies: Effort Unfairness and Feature Segregation through the Lens of Social Learning`` to appear at ICML 2019 ==
+### Code for paper titled ``On the Long-term Impact of Algorithmic Policies: Effort Unfairness and Feature Segregation through the Lens of Social Learning`` to appear at ICML 2019
 
-Authors:
-Vedant Nanda, MPI-SWS
-Hoda Heidari, ETH Zürich
-Krishna P. Gummadi, MPI-SWS
+### Authors:
 
+ * Vedant Nanda, MPI-SWS
+ * Hoda Heidari, ETH Zürich
+ * Krishna P. Gummadi, MPI-SWS
 
-Requirements:
+#### Requirements:
 
-python 3.5.3 or above
+1. python 3.5.3 or above
 
-Python Libraries needed to run the code:
+###### Libraries needed to run the code:
 
-asn1crypto==0.24.0
-bcrypt==3.1.5
-cffi==1.11.5
-cryptography==2.4.2
-cycler==0.10.0
-idna==2.8
-kiwisolver==1.0.1
-matplotlib==3.0.2
-numpy==1.16.0
-pandas==0.23.4
-paramiko==2.4.2
-pkg-resources==0.0.0
-pyasn1==0.4.5
-pycparser==2.19
-pydotplus==2.0.2
-PyNaCl==1.3.0
-pyparsing==2.3.0
-python-dateutil==2.7.5
-pytz==2018.9
-scikit-learn==0.20.2
-scipy==1.2.0
-seaborn==0.9.0
-six==1.12.0
-sklearn==0.0
-xlrd==1.2.0
+ * asn1crypto==0.24.0
+ * bcrypt==3.1.5
+ * cffi==1.11.5
+ * cryptography==2.4.2
+ * cycler==0.10.0
+ * idna==2.8
+ * kiwisolver==1.0.1
+ * matplotlib==3.0.2
+ * numpy==1.16.0
+ * pandas==0.23.4
+ * paramiko==2.4.2
+ * pkg-resources==0.0.0
+ * pyasn1==0.4.5
+ * pycparser==2.19
+ * pydotplus==2.0.2
+ * PyNaCl==1.3.0
+ * pyparsing==2.3.0
+ * python-dateutil==2.7.5
+ * pytz==2018.9
+ * scikit-learn==0.20.2
+ * scipy==1.2.0
+ * seaborn==0.9.0
+ * six==1.12.0
+ * sklearn==0.0
+ * xlrd==1.2.0
 
 
 To install all these, cd to effort_reward_fairness and execute ``pip install -r requirements.txt``. You might need sudo permission for installation.
 
 
-= Reproduction of experiments and results in the paper titled ``On the Long-term Impact of Algorithmic Policies: Effort Unfairness and Feature Segregation through the Lens of Social Learning`` =
+###### Reproduction of experiments and results in the paper
 
 Once dependencies have been installed, cd to the ``effort_reward_fairness`` directory.
 
@@ -59,9 +59,9 @@ Once dependencies have been installed, cd to the ``effort_reward_fairness`` dire
 6. Once you have done step 5, you'll find ``segregation_centralization_fc.pdf``, ``segregation_atkinson_fc.pdf``, ``segregation_ACI_fc.pdf`` in the directory ``./effort_reward_fairness/results/StudentPerf/segregation_plots``. Thes plots are included in Fig 5 in the paper.
 
 
-== Preprocessing ==
+###### Preprocessing
 
-Code for preprocessing the Student Performance Dataset (http://archive.ics.uci.edu/ml/datasets/Student+Performance) can be found in ``./util/datasets/data/student_performance/preprocessing.ipynb``. An executable python file (``preprocessing.py``) of this notebook is also available in the same directory.
+Code for preprocessing the [Student Performance Dataset](http://archive.ics.uci.edu/ml/datasets/Student+Performance) can be found in ``./util/datasets/data/student_performance/preprocessing.ipynb``. An executable python file (``preprocessing.py``) of this notebook is also available in the same directory.
 
 
 ** To run Fairness Constraints you need the file ``trained_linregfc_StudentPerf.mat`` in the ``./effort_reward_fairness`` directory. For easy reproduction of results we have included this file, however this is generated using MATLAB code in the directory ``./Fairness_constraints`` and can be found in the directory ``./Fairness_constraints/Output`` after you run ``./Fairness_constraints/Social_welfare_constrained_ERM_regularized.m``.
