@@ -1,4 +1,4 @@
-# Code for paper titled ``On the Long-term Impact of Algorithmic Policies: Effort Unfairness and Feature Segregation through the Lens of Social Learning`` to appear at ICML 2019
+### Code for paper titled ``On the Long-term Impact of Algorithmic Policies: Effort Unfairness and Feature Segregation through the Lens of Social Learning`` to appear at ICML 2019
 
 ### Authors:
 
@@ -6,11 +6,11 @@
  * Hoda Heidari, ETH Zürich
  * Krishna P. Gummadi, MPI-SWS
 
-### Requirements:
+#### Requirements:
 
 1. python 3.5.3 or above
 
-#### Libraries needed to run the code:
+###### Libraries needed to run the code:
 
 asn1crypto==0.24.0
 bcrypt==3.1.5
@@ -42,7 +42,7 @@ xlrd==1.2.0
 To install all these, cd to effort_reward_fairness and execute ``pip install -r requirements.txt``. You might need sudo permission for installation.
 
 
-## Reproduction of experiments and results in the paper
+###### Reproduction of experiments and results in the paper
 
 Once dependencies have been installed, cd to the ``effort_reward_fairness`` directory.
 
@@ -59,7 +59,7 @@ Once dependencies have been installed, cd to the ``effort_reward_fairness`` dire
 6. Once you have done step 5, you'll find ``segregation_centralization_fc.pdf``, ``segregation_atkinson_fc.pdf``, ``segregation_ACI_fc.pdf`` in the directory ``./effort_reward_fairness/results/StudentPerf/segregation_plots``. Thes plots are included in Fig 5 in the paper.
 
 
-== Preprocessing ==
+###### Preprocessing
 
 Code for preprocessing the [Student Performance Dataset](http://archive.ics.uci.edu/ml/datasets/Student+Performance) can be found in ``./util/datasets/data/student_performance/preprocessing.ipynb``. An executable python file (``preprocessing.py``) of this notebook is also available in the same directory.
 
