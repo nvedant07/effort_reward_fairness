@@ -65,3 +65,6 @@ Code for preprocessing the [Student Performance Dataset](http://archive.ics.uci.
 
 
 ** To run Fairness Constraints you need the file ``trained_linregfc_StudentPerf.mat`` in the ``./effort_reward_fairness`` directory. For easy reproduction of results we have included this file, however this is generated using MATLAB code in the directory ``./Fairness_constraints`` and can be found in the directory ``./Fairness_constraints/Output`` after you run ``./Fairness_constraints/Social_welfare_constrained_ERM_regularized.m``.
+
+
+Caution: This is a work in progress, some TODOs (particularly in group_explanations.py need to be carefully looked at).

@@ -1,5 +1,5 @@
 from learning_env import learning_env
-from sklearn.linear_model import LogisticRegression, LinearRegression
+from sklearn.linear_model import LogisticRegression, LinearRegression, Ridge
 from sklearn.tree import DecisionTreeClassifier, DecisionTreeRegressor
 from sklearn.svm import SVC
 from sklearn.neural_network import MLPClassifier, MLPRegressor
@@ -140,6 +140,30 @@ class NN(learning_env.LearningEnv):
         self.y_train = y_train
         self.best_param = self.find_hyperparams_cv(MLPClassifier, self.hyperparams)
         self.clf = MLPClassifier(**self.best_param)
+        self.clf.fit(x_train, y_train)
+
+    def predict(self, x):
+        return self.clf.predict(x)
+
+class RidgeReg(learning_env.LearningEnv):
+    """Linear Regression"""
+    def __init__(self, alpha):
+        self.x_val, self.y_val = None, None
+        self.alpha = alpha
+
+    def __str__(self):
+        return "RidgeReg"
+
+    def filename(self):
+        return "RidgeReg"
+
+    def shortfilename(self):
+        return "Ridge"
+
+    def train(self, x_train, y_train):
+        self.x_train = x_train
+        self.y_train = y_train
+        self.clf = Ridge(alpha=self.alpha)
         self.clf.fit(x_train, y_train)
 
     def predict(self, x):

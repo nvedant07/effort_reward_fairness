@@ -750,7 +750,7 @@ def plot_one_var_vs_other(res_dir, model, x_vals, y_vals_sens, y_vals_nosens, x_
     plt.rcParams['axes.linewidth'] = 3
     plt.rcParams['xtick.labelsize'] = 18
     plt.rcParams['ytick.labelsize'] = 18
-    plt.rcParams['legend.fontsize'] = 18
+    plt.rcParams['legend.fontsize'] = 22
     plt.rcParams['figure.titlesize'] = 28
     plt.rcParams['lines.linewidth'] = 3.0
 
@@ -790,7 +790,7 @@ def plot_one_var_vs_other_together(res_dir, sens_dict, nosens_dict, x_label, y_l
     plt.rcParams['axes.linewidth'] = 3
     plt.rcParams['xtick.labelsize'] = 16
     plt.rcParams['ytick.labelsize'] = 16
-    plt.rcParams['legend.fontsize'] = 8
+    plt.rcParams['legend.fontsize'] = 10
     plt.rcParams['figure.titlesize'] = 28
     plt.rcParams['lines.linewidth'] = 3.0
 

@@ -22,6 +22,7 @@ from datasets import file_util as fu
 
 CLASSIFICATION = 'classification'
 REGRESSION = 'regression'
+# Only set this to True if you have trained a fairness constraints model for the particular dataset you are evaluating and have put the weights file (.mat) in the root folder
 FAIRNESS_CONSTRAINTS = False
 
 dataset_info = {
@@ -31,6 +32,10 @@ dataset_info = {
     'PreprocCreditCardDefault': {'cost_funcs': cf.get_pre_proc_credit_default_cost_funcs, 'sens_f': ('men', 'women', 'Male_0'), 
                                 'variable_constraints': cf.PRE_PROC_CREDIT_DEFAULT_DIRS, 'prediction_task': CLASSIFICATION},
     'StudentPerf': {'cost_funcs': cf.get_student_perf_cost_funcs, 'sens_f': ('0', '1', 'sex_Male'), 
+                    'variable_constraints': cf.STUDENT_PERF_DIRS, 'variable_constraints_rev': cf.STUDENT_PERF_DIRS_REV, 'prediction_task': REGRESSION},
+    'StudentPerfMut': {'cost_funcs': cf.get_student_perf_cost_funcs, 'sens_f': ('0', '1', 'sex_Male'), 
+                    'variable_constraints': cf.STUDENT_PERF_DIRS, 'variable_constraints_rev': cf.STUDENT_PERF_DIRS_REV, 'prediction_task': REGRESSION},
+    'StudentPerfMutPlusImmut': {'cost_funcs': cf.get_student_perf_cost_funcs, 'sens_f': ('0', '1', 'sex_Male'), 
                     'variable_constraints': cf.STUDENT_PERF_DIRS, 'variable_constraints_rev': cf.STUDENT_PERF_DIRS_REV, 'prediction_task': REGRESSION},
     'CrimesCommunities': {'cost_funcs': cf.get_student_perf_cost_funcs, 'sens_f': ('0', '1', 'MajorityRaceWhite'), 
                     'variable_constraints': cf.CRIMES_DIRS, 'variable_constraints_rev': cf.CRIMES_DIRS_REV, 'prediction_task': REGRESSION}
@@ -43,6 +48,8 @@ def base_exp(return_vars=False, test_or_train=None):
     #dataset = "CreditDefault"
     #dataset = "PreprocCreditCardDefault"
     dataset = "StudentPerf"
+    # dataset = "StudentPerfMut"
+    # dataset = "StudentPerfMutPlusImmut"
     # dataset = "CrimesCommunities"
     if FAIRNESS_CONSTRAINTS:
         models = [lm.LinRegFC(11.9, dataset), lm.LinRegFC(12.9, dataset), lm.LinRegFC(13.9, dataset), lm.LinRegFC(14.9, dataset)]
@@ -51,6 +58,10 @@ def base_exp(return_vars=False, test_or_train=None):
             models = [lm.LogReg(), lm.DT(), lm.SVM(), lm.NN()]
         elif dataset_info[dataset]['prediction_task'] == REGRESSION:
             models = [lm.LinReg(), lm.NNReg(), lm.DTReg()]
+            if dataset == "StudentPerfMut":
+                models = [lm.RidgeReg(0.1)]
+            elif dataset == "StudentPerfMutPlusImmut":
+                models = [lm.RidgeReg(200)]
     if return_vars:
         return dataset, models
     evaluate_models(dataset, models, test_or_train)
@@ -358,12 +369,12 @@ def evaluate_models(dataset, models, test_or_train, subsample_size=None, num_inv
 
             if len(disparity_table_heading) <= 1:
                 heading, formats, values = eval_formula.get_disparity_measures(users_gt, users_preds, users_sens_group, 
-                                np.mean(user_utility_sens), np.mean(user_utility_nosens), dataset_info[dataset]['prediction_task'], return_heading_and_formats=True)
+                                np.nanmean(user_utility_sens), np.nanmean(user_utility_nosens), dataset_info[dataset]['prediction_task'], return_heading_and_formats=True)
                 disparity_table_heading += heading
                 disparity_table_formats += formats
             else:
                 values = eval_formula.get_disparity_measures(users_gt, users_preds, users_sens_group, 
-                                np.mean(user_utility_sens), np.mean(user_utility_nosens), dataset_info[dataset]['prediction_task'], return_heading_and_formats=False)
+                                np.nanmean(user_utility_sens), np.nanmean(user_utility_nosens), dataset_info[dataset]['prediction_task'], return_heading_and_formats=False)
             disparity_table_values.append([str(clf)] + values)
 
             with open(group_res_file_path, 'a') as group_res_file:
@@ -393,10 +404,10 @@ def evaluate_models(dataset, models, test_or_train, subsample_size=None, num_inv
             # group_res_file.write("== IGNORE STUFF BELOW THIS FOR NOW ==\n\n")
             # group_res_file.write("=== Group Explanations ===\n\n")
 
-    out.upload_results([res_dir], 'results', aeio.SERVER_PROJECT_PATH, '.png')
-    out.upload_results([res_dir + '/disparity_plots'], 'results', aeio.SERVER_PROJECT_PATH, '.png')
-    out.upload_results([res_dir], 'results', aeio.SERVER_PROJECT_PATH, '.pdf')
-    out.upload_results([res_dir + '/disparity_plots'], 'results', aeio.SERVER_PROJECT_PATH, '.pdf')
+    # out.upload_results([res_dir], 'results', aeio.SERVER_PROJECT_PATH, '.png')
+    # out.upload_results([res_dir + '/disparity_plots'], 'results', aeio.SERVER_PROJECT_PATH, '.png')
+    # out.upload_results([res_dir], 'results', aeio.SERVER_PROJECT_PATH, '.pdf')
+    # out.upload_results([res_dir + '/disparity_plots'], 'results', aeio.SERVER_PROJECT_PATH, '.pdf')
 
 def get_dataset_statistics_temp(y, sens_group, prediction_task):
     if prediction_task == REGRESSION:

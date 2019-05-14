@@ -286,7 +286,7 @@ class EffortRewardPlots(lti.LongTermImpact):
             y_train_pred = model.predict(self.role_model_users).astype(bool if exp.dataset_info[self.dataset]['prediction_task'] == exp.CLASSIFICATION else float)
             
             print ("Model: {}, MAE: {}, MSE: {}".format(model, mean_absolute_error(self.users_gt, y_test_pred), mean_squared_error(self.users_gt, y_test_pred)))
-            continue
+            # continue
 
             self.role_model_users_pred = y_train_pred # This should not change
             self.users_preds = y_test_pred if test_or_train == 'test' else y_train_pred # change this based on which group's explanations are needed (test or train)
@@ -341,7 +341,7 @@ class EffortRewardPlots(lti.LongTermImpact):
                     assert role_model_utility == role_model_reward - role_model_effort
                     sens_rewards.append(role_model_reward)
                     print ("[Sens] Model: {}, Effort threshold: {}, Effort value: {}, Max Reward: {}".format(model, delta,role_model_effort, role_model_reward))
-                    break
+                    # break
                     # role_model, role_model_effort, role_model_reward, role_model_utility = \
                     #     self.sampling_based_explanations(
                     #         user, 
@@ -409,7 +409,7 @@ class EffortRewardPlots(lti.LongTermImpact):
                     assert role_model_utility == role_model_reward - role_model_effort
                     nosens_rewards.append(role_model_reward)
                     print ("[Nosens] Model: {}, Effort threshold: {}, Effort value: {}, Max Reward: {}".format(model, delta, role_model_effort, role_model_reward))
-                    break
+                    # break
                     # role_model, role_model_effort, role_model_reward, role_model_utility = \
                     #     self.sampling_based_explanations(
                     #         user, 
@@ -556,15 +556,21 @@ class EffortRewardPlots(lti.LongTermImpact):
                     aeio.plot_one_var_vs_other(self.res_dir, model, self.effort_deltas, sens_reward_with_effort, nosens_reward_with_effort, 'Effort', 'Average Reward'),
                     aeio.plot_one_var_vs_other(self.res_dir, model, self.reward_deltas, sens_effort_with_reward, nosens_effort_with_reward, 'Reward', 'Average Effort')
                     ))
+        # model_to_utility_sens = joblib.load(self.res_dir + '/plots_pickled_data/model_to_utility_sens.pkl' if not exp.FAIRNESS_CONSTRAINTS else self.res_dir + '/plots_pickled_data/model_to_utility_sens_fc.pkl')
+        # model_to_utility_nosens = joblib.load(self.res_dir + '/plots_pickled_data/model_to_utility_nosens.pkl' if not exp.FAIRNESS_CONSTRAINTS else self.res_dir + '/plots_pickled_data/model_to_utility_nosens_fc.pkl')
+        # model_to_reward_sens = joblib.load(self.res_dir + '/plots_pickled_data/model_to_reward_sens.pkl' if not exp.FAIRNESS_CONSTRAINTS else self.res_dir + '/plots_pickled_data/model_to_reward_sens_fc.pkl')
+        # model_to_reward_nosens = joblib.load(self.res_dir + '/plots_pickled_data/model_to_reward_nosens.pkl' if not exp.FAIRNESS_CONSTRAINTS else self.res_dir + '/plots_pickled_data/model_to_reward_nosens_fc.pkl')
+        # model_to_effort_nosens = joblib.load(self.res_dir + '/plots_pickled_data/model_to_effort_nosens.pkl' if not exp.FAIRNESS_CONSTRAINTS else self.res_dir + '/plots_pickled_data/model_to_effort_nosens_fc.pkl')
+        # model_to_effort_sens = joblib.load(self.res_dir + '/plots_pickled_data/model_to_effort_sens.pkl' if not exp.FAIRNESS_CONSTRAINTS else self.res_dir + '/plots_pickled_data/model_to_effort_sens_fc.pkl')
         with open(self.res_file_path, 'a') as res_file:
-            res_file.write("== All Models in One ==\n\n".format(str(model)))
+            res_file.write("== All Models in One ==\n\n")
             res_file.write("{}\n\n{}\n\n{}\n\n".format(
                 aeio.plot_one_var_vs_other_together(self.res_dir, model_to_utility_sens, model_to_utility_nosens, 'Effort', 'Average Utility'),
                 aeio.plot_one_var_vs_other_together(self.res_dir, model_to_reward_sens, model_to_reward_nosens, 'Effort', 'Average Reward'),
                 aeio.plot_one_var_vs_other_together(self.res_dir, model_to_effort_sens, model_to_effort_nosens, 'Reward', 'Average Effort')
             ))
-        out.upload_results([self.res_dir + '/disparity_plots'], 'results', aeio.SERVER_PROJECT_PATH, '.png')
-        out.upload_results([self.res_dir + '/disparity_plots'], 'results', aeio.SERVER_PROJECT_PATH, '.pdf')
+        # out.upload_results([self.res_dir + '/disparity_plots'], 'results', aeio.SERVER_PROJECT_PATH, '.png')
+        # out.upload_results([self.res_dir + '/disparity_plots'], 'results', aeio.SERVER_PROJECT_PATH, '.pdf')
         out.create_dir(self.res_dir + '/plots_pickled_data')
         joblib.dump(model_to_utility_sens, self.res_dir + '/plots_pickled_data/model_to_utility_sens.pkl' if not exp.FAIRNESS_CONSTRAINTS else self.res_dir + '/plots_pickled_data/model_to_utility_sens_fc.pkl')
         joblib.dump(model_to_utility_nosens, self.res_dir + '/plots_pickled_data/model_to_utility_nosens.pkl' if not exp.FAIRNESS_CONSTRAINTS else self.res_dir + '/plots_pickled_data/model_to_utility_nosens_fc.pkl')

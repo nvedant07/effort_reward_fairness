@@ -54,8 +54,8 @@ class DecRuleEnv(learning_env.LearningEnv):
                     data['attr_info'] = f_info
             elif self.ds_name == 'PreprocCreditCardDefault':
                 data = credit_card_default_data.load_preproc_credit_card_default_data(normalize_cont_features=False)
-            elif self.ds_name == 'StudentPerf':
-                data = load_student_perf_data.load_student_perf_data()
+            elif self.ds_name == 'StudentPerf' or self.ds_name == "StudentPerfMutPlusImmut" or self.ds_name == "StudentPerfMut":
+                data = load_student_perf_data.load_student_perf_data(self.ds_name)
             elif self.ds_name == 'CrimesCommunities':
                 data = load_crimes_and_communities.load_crimes_and_communities()
             else:

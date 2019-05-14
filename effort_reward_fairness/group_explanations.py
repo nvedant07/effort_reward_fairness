@@ -80,12 +80,12 @@ class SamplingMethod:
         ## Keeping track of focal points/anchors
         indices_of_users = np.array(list(zip(*enumerate(users)))[0])
         # Forcing role models to have Higher ground truth label than that of user
-        mask_higher_gt = np.where(users_predicted_val >= user_predicted_val)[0]
+        mask_higher_gt = np.where(users_predicted_val >= user_predicted_val)[0] # TODO: In some cases > makes more sense here
         users = users[mask_higher_gt]
         users_predicted_val = users_predicted_val[mask_higher_gt]
         users_ground_truth = users_ground_truth[mask_higher_gt]
         indices_of_users = indices_of_users[mask_higher_gt]
-        assert np.all(users_predicted_val >= user_predicted_val)
+        assert np.all(users_predicted_val >= user_predicted_val) # TODO: In some cases > makes more sense here
 
         # #### TODO: dirty, make it nicer
         if self.dataset != 'CrimesCommunities':
@@ -197,6 +197,7 @@ class SamplingMethod:
         right_users, corresponding_gt, corresponding_preds, indices_of_users = self.get_possible_role_models(user.flatten(), user_ground_truth, user_predicted_val, 
             users, users_ground_truth, users_predicted_val)
         if right_users.shape[0] == 0:
+            # TODO: This should return np.nan
             return user[0], 0, 0, user_ground_truth == False and user_predicted_val == True, user_ground_truth, np.nan
         efforts = pairwise_distances(user, right_users, metric=self.effort_measure, n_jobs=-1).flatten()
         utilities = cf.compute_utility(corresponding_gt, corresponding_preds, np.array([user_ground_truth] * len(right_users)), 
@@ -208,6 +209,7 @@ class SamplingMethod:
         role_model_utility = utilities[idx]
         role_model_effort = efforts[idx]
         anchor = indices_of_users[idx]
+        print (role_model_utility)
         if return_only_user:
             # used for effort_reward_function_plots.py
             return (role_model, role_model_gt, role_model_pred)
